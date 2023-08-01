@@ -7,17 +7,29 @@ import org.leviatanplatform.simulation.galaxy.engine.model.Star;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewtonianDynamicsCalculator {
+public class NewtonianDynamicsCalculator implements DynamicsCalculator {
 
     private static final double G = 6.67e-11;
 
-    public static Galaxy moveTimeForward(Galaxy galaxy, double seconds) {
+    // FIXME use
+    public Galaxy moveTimeForward(Galaxy galaxy, double seconds) {
 
         List<Star> initialListStar = galaxy.listStar();
         List<Star> clonedListStar = new ArrayList<>(initialListStar);
 
-        // FIXME finish
-        return null;
+        List<Star> finalListStar = initialListStar.stream().map(star -> calculateNewStar(star, clonedListStar, seconds)).toList();
+
+        return new Galaxy(finalListStar);
+    }
+
+    private Star calculateNewStar(Star star, List<Star> listStar, double seconds) {
+
+        Vector position = star.position();
+        Vector velocity = star.velocity();
+        Vector newPosition = position.add(velocity.multiply(seconds));
+        Vector acceleration = calculateAccelerationOfListOfStarsInPosition(star.position(), listStar);
+        Vector newVelocity = velocity.add(acceleration.multiply(seconds));
+        return new Star(star.mass(), newPosition, newVelocity);
     }
 
     private Vector calculateAccelerationOfListOfStarsInPosition(Vector position, List<Star> listStar) {
