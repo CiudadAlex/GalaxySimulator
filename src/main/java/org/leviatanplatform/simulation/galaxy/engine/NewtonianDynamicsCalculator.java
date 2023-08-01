@@ -11,7 +11,6 @@ public class NewtonianDynamicsCalculator implements DynamicsCalculator {
 
     private static final double G = 6.67e-11;
 
-    // FIXME use
     public Galaxy moveTimeForward(Galaxy galaxy, double seconds) {
 
         List<Star> initialListStar = galaxy.listStar();
