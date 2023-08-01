@@ -16,7 +16,8 @@ public class RandomStarGenerator {
     public static final double LIGHT_YEAR = 9.461e+15;
     public static final double MILKY_WAY_RADIUS = 27000 * LIGHT_YEAR;
 
-    public static final double YEAR = 3.154e+7;
+    public static final double DAY = 24 * 3600;
+    public static final double YEAR = 365.25 * DAY;
     public static final double MILLENNIUM = 1000 * YEAR;
 
 

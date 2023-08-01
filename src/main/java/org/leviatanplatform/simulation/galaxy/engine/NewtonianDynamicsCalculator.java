@@ -48,6 +48,11 @@ public class NewtonianDynamicsCalculator implements DynamicsCalculator {
 
         Vector starPosition = star.position();
         double r = calculateDistance(position, starPosition);
+
+        if (r == 0) {
+            return new Vector(0, 0, 0);
+        }
+
         double accelerationNorm = G * star.mass() / Math.pow(r, 2);
         return position.subtract(starPosition).multiply(accelerationNorm);
     }

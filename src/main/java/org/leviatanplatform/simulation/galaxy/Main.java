@@ -15,10 +15,13 @@ public class Main {
         Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
         DynamicsCalculator dynamicsCalculator = new NewtonianDynamicsCalculator();
 
-        double seconds = RandomStarGenerator.YEAR;
+        double seconds = 3 * 30 * RandomStarGenerator.DAY;
         int numberOfIterations = 10;
         GalaxyGraphicRepresentation galaxyGraphicRepresentation = new GalaxyGraphicRepresentation();
         Chronometer chronometer = new Chronometer();
+
+        galaxyGraphicRepresentation.show(galaxy);
+        Thread.sleep(1000);
 
         for (int i = 0 ; i < numberOfIterations; i++) {
 
@@ -27,8 +30,9 @@ public class Main {
             chronometer.toc();
 
             galaxyGraphicRepresentation.show(galaxy);
-
             Thread.sleep(1000);
         }
+
+        System.exit(0);
     }
 }
