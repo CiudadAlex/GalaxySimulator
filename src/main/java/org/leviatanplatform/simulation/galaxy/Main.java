@@ -15,8 +15,9 @@ public class Main {
         int numberOfStars = 1000;
         int millisToRepaint = 100;
 
-        //Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
-        Galaxy galaxy = RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars);
+        Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
+        //Galaxy galaxy = RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars);
+
         DynamicsCalculator dynamicsCalculator = new NewtonianDynamicsCalculator();
 
         double seconds = 3 * 30 * RandomStarGenerator.DAY;
@@ -32,6 +33,8 @@ public class Main {
             galaxy = dynamicsCalculator.moveTimeForward(galaxy, seconds);
             chronometer.toc();
 
+            inspect(0, galaxy);
+
             paint(galaxyGraphicRepresentation, galaxy, millisToRepaint);
         }
 
@@ -42,4 +45,10 @@ public class Main {
         galaxyGraphicRepresentation.show(galaxy);
         Thread.sleep(millisToRepaint);
     }
+
+    private static void inspect(int starId, Galaxy galaxy) {
+        galaxy.listStar().stream().filter(star -> star.id() == starId).forEach(System.out::println);
+    }
+
+
 }

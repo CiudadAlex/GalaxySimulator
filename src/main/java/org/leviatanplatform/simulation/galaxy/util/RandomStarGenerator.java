@@ -22,7 +22,7 @@ public class RandomStarGenerator {
 
 
     public static Galaxy generateGalaxy(int numberOfStars) {
-        return generateGalaxy(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY);
+        return generateGalaxy(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
     }
 
     public static Galaxy generateGalaxy(int numberOfStars, double meanMass, double lambdaDistance, double lambdaVelocity) {
@@ -52,7 +52,7 @@ public class RandomStarGenerator {
     }
 
     public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars) {
-        return generateGalaxyFixedMassZ0(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e120);
+        return generateGalaxyFixedMassZ0(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
     }
 
     public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double mass, double lambdaDistance, double lambdaVelocity) {
