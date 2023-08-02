@@ -11,17 +11,20 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
+        int numberOfIterations = 10000;
         int numberOfStars = 1000;
-        Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
+        int millisToRepaint = 100;
+
+        //Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
+        Galaxy galaxy = RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars);
         DynamicsCalculator dynamicsCalculator = new NewtonianDynamicsCalculator();
 
         double seconds = 3 * 30 * RandomStarGenerator.DAY;
-        int numberOfIterations = 10;
+
         GalaxyGraphicRepresentation galaxyGraphicRepresentation = new GalaxyGraphicRepresentation();
         Chronometer chronometer = new Chronometer();
 
-        galaxyGraphicRepresentation.show(galaxy);
-        Thread.sleep(1000);
+        paint(galaxyGraphicRepresentation, galaxy, millisToRepaint);
 
         for (int i = 0 ; i < numberOfIterations; i++) {
 
@@ -29,10 +32,14 @@ public class Main {
             galaxy = dynamicsCalculator.moveTimeForward(galaxy, seconds);
             chronometer.toc();
 
-            galaxyGraphicRepresentation.show(galaxy);
-            Thread.sleep(1000);
+            paint(galaxyGraphicRepresentation, galaxy, millisToRepaint);
         }
 
         System.exit(0);
+    }
+
+    private static void paint(GalaxyGraphicRepresentation galaxyGraphicRepresentation, Galaxy galaxy, int millisToRepaint) throws InterruptedException {
+        galaxyGraphicRepresentation.show(galaxy);
+        Thread.sleep(millisToRepaint);
     }
 }

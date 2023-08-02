@@ -54,4 +54,32 @@ public class RandomStarGenerator {
 
         return new Star(mass, position, velocity);
     }
+
+    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars) {
+        return generateGalaxyFixedMassZ0(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY);
+    }
+
+    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double mass, double lambdaDistance, double lambdaVelocity) {
+
+        List<Star> listStar = new ArrayList<>(numberOfStars);
+
+        for (int i=0; i < numberOfStars; i++) {
+            listStar.add(generateFixedMassZ0(mass, lambdaDistance, lambdaVelocity));
+        }
+
+        return new Galaxy(listStar);
+    }
+
+    public static Star generateFixedMassZ0(double mass, double lambdaDistance, double lambdaVelocity) {
+
+        Random random = new Random();
+
+        Vector position = new Vector(random.nextGaussian() * lambdaDistance, random.nextGaussian() * lambdaDistance,
+                0);
+
+        Vector velocity = new Vector(random.nextGaussian() * lambdaVelocity, random.nextGaussian() * lambdaVelocity,
+                0);
+
+        return new Star(mass, position, velocity);
+    }
 }

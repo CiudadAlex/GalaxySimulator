@@ -27,8 +27,12 @@ public class GalaxyGraphicRepresentationUtils {
 
     private static void paintStar(Graphics g, Star star, double maxDistantStar, int pixelsReference) {
         Vector position = star.position();
-        int x = (int) (pixelsReference * position.x() / maxDistantStar);
-        int y = (int) (pixelsReference * position.y() / maxDistantStar);
-        g.fillOval(x, y, 1, 1);
+        int x = scaleToScreen(maxDistantStar, pixelsReference, position.x());
+        int y = scaleToScreen(maxDistantStar, pixelsReference, position.y());
+        g.fillOval(x, y, 3, 3);
+    }
+
+    private static int scaleToScreen(double maxDistantStar, int pixelsReference, double coordinate) {
+        return (int) (pixelsReference * coordinate / maxDistantStar) + pixelsReference/2;
     }
 }
