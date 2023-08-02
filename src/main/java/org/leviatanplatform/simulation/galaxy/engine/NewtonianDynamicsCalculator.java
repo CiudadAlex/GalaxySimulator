@@ -53,7 +53,7 @@ public class NewtonianDynamicsCalculator implements DynamicsCalculator {
             return new Vector(0, 0, 0);
         }
 
-        double accelerationNorm = G * star.mass() / Math.pow(r, 2);
+        double accelerationNorm = - G * star.mass() / Math.pow(r, 2);
         return position.subtract(starPosition).multiply(accelerationNorm);
     }
 
