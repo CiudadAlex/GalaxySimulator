@@ -17,6 +17,7 @@ public class Main {
 
         Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
         //Galaxy galaxy = RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars);
+        RandomStarGenerator.addBlackHole(galaxy);
 
         DynamicsCalculator dynamicsCalculator = new NewtonianDynamicsCalculator();
 

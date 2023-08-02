@@ -11,6 +11,8 @@ import java.util.Random;
 public class RandomStarGenerator {
 
     public static final double SOLAR_MASS = 1.989e+30;
+
+    public static final double BLACK_HOLE_MASS = 10000 * SOLAR_MASS;
     public static final double TYPICAL_STAR_VELOCITY = 100000;
 
     public static final double LIGHT_YEAR = 9.461e+15;
@@ -77,5 +79,13 @@ public class RandomStarGenerator {
                 0);
 
         return new Star(id, mass, position, velocity);
+    }
+
+    public static void addBlackHole(Galaxy galaxy) {
+        galaxy.listStar().add(generateBlackHole());
+    }
+
+    private static Star generateBlackHole() {
+        return generate(-1, BLACK_HOLE_MASS, 0, 0);
     }
 }
