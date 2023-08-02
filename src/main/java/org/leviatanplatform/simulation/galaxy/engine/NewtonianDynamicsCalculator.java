@@ -28,7 +28,7 @@ public class NewtonianDynamicsCalculator implements DynamicsCalculator {
         Vector newPosition = position.add(velocity.multiply(seconds));
         Vector acceleration = calculateAccelerationOfListOfStarsInPosition(star.position(), listStar);
         Vector newVelocity = velocity.add(acceleration.multiply(seconds));
-        return new Star(star.mass(), newPosition, newVelocity);
+        return new Star(star.id(), star.mass(), newPosition, newVelocity);
     }
 
     private Vector calculateAccelerationOfListOfStarsInPosition(Vector position, List<Star> listStar) {
