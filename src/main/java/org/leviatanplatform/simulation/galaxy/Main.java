@@ -17,7 +17,7 @@ public class Main {
         int numberOfStars = 1000;
         int millisToRepaint = 10;
         boolean relativistic = false;
-        GalaxyType galaxyType = GalaxyType.FLAT_ROTATORY;
+        GalaxyType galaxyType = GalaxyType.NO_RESTRICTION;
         boolean hasBlackHole = false;
         double velocityFactor = 1e6;
         double secondsJump = 3 * RandomGalaxyGenerator.MONTH;
