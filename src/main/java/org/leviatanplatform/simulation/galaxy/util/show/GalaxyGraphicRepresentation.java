@@ -1,7 +1,7 @@
 package org.leviatanplatform.simulation.galaxy.util.show;
 
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
-import org.leviatanplatform.simulation.galaxy.util.RandomStarGenerator;
+import org.leviatanplatform.simulation.galaxy.util.generator.RandomStarGenerator;
 
 import javax.swing.*;
 import java.awt.*;

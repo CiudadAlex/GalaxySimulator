@@ -1,4 +1,4 @@
-package org.leviatanplatform.simulation.galaxy.util;
+package org.leviatanplatform.simulation.galaxy.util.generator;
 
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
 import org.leviatanplatform.simulation.galaxy.engine.model.Star;
