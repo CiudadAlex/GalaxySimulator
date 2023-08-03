@@ -2,6 +2,7 @@ package org.leviatanplatform.simulation.galaxy;
 
 import org.leviatanplatform.simulation.galaxy.engine.DynamicsCalculator;
 import org.leviatanplatform.simulation.galaxy.engine.NewtonianDynamicsCalculator;
+import org.leviatanplatform.simulation.galaxy.engine.RelativisticDynamicsCalculator;
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
 import org.leviatanplatform.simulation.galaxy.util.Chronometer;
 import org.leviatanplatform.simulation.galaxy.util.RandomStarGenerator;
@@ -14,12 +15,20 @@ public class Main {
         int numberOfIterations = 10000;
         int numberOfStars = 1000;
         int millisToRepaint = 100;
+        boolean relativistic = false;
+        boolean flatUniverse = false;
 
-        Galaxy galaxy = RandomStarGenerator.generateGalaxy(numberOfStars);
-        //Galaxy galaxy = RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars);
+        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse);
+    }
+
+    public static void simulateGalaxy(int numberOfIterations, int numberOfStars, int millisToRepaint,
+                                      boolean relativistic, boolean flatUniverse) throws InterruptedException {
+
+        Galaxy galaxy = flatUniverse ? RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars)
+                : RandomStarGenerator.generateGalaxy(numberOfStars);
         RandomStarGenerator.addBlackHole(galaxy);
 
-        DynamicsCalculator dynamicsCalculator = new NewtonianDynamicsCalculator();
+        DynamicsCalculator dynamicsCalculator = relativistic ? new NewtonianDynamicsCalculator() : new RelativisticDynamicsCalculator();
 
         double seconds = 3 * 30 * RandomStarGenerator.DAY;
 
