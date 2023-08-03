@@ -19,14 +19,15 @@ public class Main {
         boolean flatUniverse = false;
         boolean hasBlackHole = false;
         double velocityFactor = 1e6;
+        double secondsJump = 3 * RandomGalaxyGenerator.MONTH;
 
         simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse, hasBlackHole,
-                velocityFactor);
+                velocityFactor, secondsJump);
     }
 
     public static void simulateGalaxy(int numberOfIterations, int numberOfStars, int millisToRepaint,
                                       boolean relativistic, boolean flatUniverse, boolean hasBlackHole,
-                                      double velocityFactor) throws InterruptedException {
+                                      double velocityFactor, double secondsJump) throws InterruptedException {
 
         Galaxy galaxy = flatUniverse ? RandomGalaxyGenerator.generateGalaxyFixedMassZ0(numberOfStars, velocityFactor)
                 : RandomGalaxyGenerator.generateGalaxy(numberOfStars, velocityFactor);
@@ -37,8 +38,6 @@ public class Main {
 
         DynamicsCalculator dynamicsCalculator = relativistic ? new RelativisticDynamicsCalculator() : new NewtonianDynamicsCalculator();
 
-        double seconds = 3 * 30 * RandomGalaxyGenerator.DAY;
-
         GalaxyGraphicRepresentation galaxyGraphicRepresentation = new GalaxyGraphicRepresentation();
         Chronometer chronometer = new Chronometer();
 
@@ -47,7 +46,7 @@ public class Main {
         for (int i = 0 ; i < numberOfIterations; i++) {
 
             chronometer.tic();
-            galaxy = dynamicsCalculator.moveTimeForward(galaxy, seconds);
+            galaxy = dynamicsCalculator.moveTimeForward(galaxy, secondsJump);
             chronometer.toc();
 
             inspect(0, galaxy);
