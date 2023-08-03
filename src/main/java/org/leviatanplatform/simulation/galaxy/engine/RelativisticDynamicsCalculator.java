@@ -20,7 +20,8 @@ public class RelativisticDynamicsCalculator extends AbstractDynamicsCalculator {
 
         double velocityStarAccelerated2 = Math.pow(velocityStarAccelerated.norm(), 2);
         double c2 = Math.pow(C, 2);
-        double relativisticFactor = 1 - velocityStarAccelerated2 / c2;
+        double relativisticFactorSquare = 1 - velocityStarAccelerated2 / c2;
+        double relativisticFactor = relativisticFactorSquare > 0 ? Math.sqrt(relativisticFactorSquare) : 0;
 
         double accelerationNorm = - G * relativisticFactor * star.mass() / Math.pow(r, 2);
         return positionStarAccelerated.subtract(starPosition).multiply(accelerationNorm);
