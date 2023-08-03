@@ -2,17 +2,15 @@ package org.leviatanplatform.simulation.galaxy.util.generator;
 
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
 import org.leviatanplatform.simulation.galaxy.engine.model.Star;
-import org.leviatanplatform.simulation.galaxy.engine.model.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RandomGalaxyGenerator {
 
     public static final double SOLAR_MASS = 1.989e+30;
 
-    public static final double BLACK_HOLE_MASS = 10000 * SOLAR_MASS;
+    public static final double BLACK_HOLE_MASS = 100 * SOLAR_MASS;
     public static final double TYPICAL_STAR_VELOCITY = 100000;
 
     public static final double LIGHT_YEAR = 9.461e+15;
@@ -26,8 +24,9 @@ public class RandomGalaxyGenerator {
     public static Galaxy generateGalaxy(GalaxyType galaxyType, int numberOfStars, double velocityFactor) {
         return switch (galaxyType) {
             case NO_RESTRICTION -> generateGalaxyNoRestriction(numberOfStars, velocityFactor);
-            case FLAT_FIXED_MASS -> generateGalaxyFixedMassZ0(numberOfStars, velocityFactor);
+            case FLAT -> generateGalaxyFlat(numberOfStars, velocityFactor);
             case ROTATORY -> generateGalaxyRotatory(numberOfStars, velocityFactor);
+            case FLAT_ROTATORY -> generateGalaxyFlatRotatory(numberOfStars, velocityFactor);
         };
     }
 
@@ -45,9 +44,16 @@ public class RandomGalaxyGenerator {
         return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    private static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double velocityFactor) {
+    private static Galaxy generateGalaxyFlatRotatory(int numberOfStars, double velocityFactor) {
 
-        StarGenerator starGenerator = new RandomFixedMassZ0StarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
+        StarGenerator starGenerator = new RandomFlatRotatoryStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
+                TYPICAL_STAR_VELOCITY * velocityFactor);
+        return generateGalaxy(numberOfStars, starGenerator);
+    }
+
+    private static Galaxy generateGalaxyFlat(int numberOfStars, double velocityFactor) {
+
+        StarGenerator starGenerator = new RandomFlatStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
                 TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
