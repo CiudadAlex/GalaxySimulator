@@ -1,7 +1,7 @@
 package org.leviatanplatform.simulation.galaxy.util.show;
 
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
-import org.leviatanplatform.simulation.galaxy.util.generator.RandomStarGenerator;
+import org.leviatanplatform.simulation.galaxy.util.generator.RandomGalaxyGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class GalaxyGraphicRepresentation {
         if (frame == null) {
 
             this.initialMaxDistance = galaxy.listStar().stream().map(star -> star.position().norm()).mapToDouble(d -> d).max()
-                    .orElse(RandomStarGenerator.MILKY_WAY_RADIUS);
+                    .orElse(RandomGalaxyGenerator.MILKY_WAY_RADIUS);
 
             frame = new JFrame("GALAXY");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

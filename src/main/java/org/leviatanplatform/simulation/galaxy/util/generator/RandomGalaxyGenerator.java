@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomStarGenerator {
+public class RandomGalaxyGenerator {
 
     public static final double SOLAR_MASS = 1.989e+30;
 
