@@ -14,21 +14,25 @@ public class Main {
 
         int numberOfIterations = 10000;
         int numberOfStars = 1000;
-        int millisToRepaint = 100;
+        int millisToRepaint = 10;
         boolean relativistic = false;
         boolean flatUniverse = false;
+        boolean hasBlackHole = false;
 
-        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse);
+        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse, hasBlackHole);
     }
 
     public static void simulateGalaxy(int numberOfIterations, int numberOfStars, int millisToRepaint,
-                                      boolean relativistic, boolean flatUniverse) throws InterruptedException {
+                                      boolean relativistic, boolean flatUniverse, boolean hasBlackHole) throws InterruptedException {
 
         Galaxy galaxy = flatUniverse ? RandomStarGenerator.generateGalaxyFixedMassZ0(numberOfStars)
                 : RandomStarGenerator.generateGalaxy(numberOfStars);
-        RandomStarGenerator.addBlackHole(galaxy);
 
-        DynamicsCalculator dynamicsCalculator = relativistic ? new NewtonianDynamicsCalculator() : new RelativisticDynamicsCalculator();
+        if (hasBlackHole) {
+            RandomStarGenerator.addBlackHole(galaxy);
+        }
+
+        DynamicsCalculator dynamicsCalculator = relativistic ? new RelativisticDynamicsCalculator() : new NewtonianDynamicsCalculator();
 
         double seconds = 3 * 30 * RandomStarGenerator.DAY;
 
