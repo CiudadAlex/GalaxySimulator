@@ -18,6 +18,10 @@ public record Vector(double x, double y, double z) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
     }
 
+    public double scalarProduct(Vector other) {
+        return x * other.x + y * other.y + z * other.z;
+    }
+
     public Vector normalize() {
         double norm = norm();
         return new Vector(x/norm, y/norm, z/norm);
