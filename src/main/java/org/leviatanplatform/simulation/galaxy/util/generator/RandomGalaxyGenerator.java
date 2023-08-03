@@ -24,68 +24,36 @@ public class RandomGalaxyGenerator {
 
 
     public static Galaxy generateGalaxy(int numberOfStars) {
-        return generateGalaxy(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
-    }
 
-    public static Galaxy generateGalaxy(int numberOfStars, double meanMass, double lambdaDistance, double lambdaVelocity) {
-
-        List<Star> listStar = new ArrayList<>(numberOfStars);
-
-        for (int i=0; i < numberOfStars; i++) {
-            listStar.add(generate(i, meanMass, lambdaDistance, lambdaVelocity));
-        }
-
-        return new Galaxy(listStar);
-    }
-
-    public static Star generate(int id, double meanMass, double lambdaDistance, double lambdaVelocity) {
-
-        Random random = new Random();
-
-        double mass = meanMass * (random.nextDouble() + 0.5);
-
-        Vector position = new Vector(random.nextGaussian() * lambdaDistance, random.nextGaussian() * lambdaDistance,
-                random.nextGaussian() * lambdaDistance);
-
-        Vector velocity = new Vector(random.nextGaussian() * lambdaVelocity, random.nextGaussian() * lambdaVelocity,
-                random.nextGaussian() * lambdaVelocity);
-
-        return new Star(id, mass, position, velocity);
+        StarGenerator starGenerator = new RandomStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
+        return generateGalaxy(numberOfStars, starGenerator);
     }
 
     public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars) {
-        return generateGalaxyFixedMassZ0(numberOfStars, SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
+
+        StarGenerator starGenerator = new RandomFixedMassZ0StarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
+        return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double mass, double lambdaDistance, double lambdaVelocity) {
+    public static Galaxy generateGalaxy(int numberOfStars, StarGenerator starGenerator) {
 
         List<Star> listStar = new ArrayList<>(numberOfStars);
 
         for (int i=0; i < numberOfStars; i++) {
-            listStar.add(generateFixedMassZ0(i, mass, lambdaDistance, lambdaVelocity));
+            listStar.add(starGenerator.generate(i));
         }
 
         return new Galaxy(listStar);
     }
 
-    public static Star generateFixedMassZ0(int id, double mass, double lambdaDistance, double lambdaVelocity) {
-
-        Random random = new Random();
-
-        Vector position = new Vector(random.nextGaussian() * lambdaDistance, random.nextGaussian() * lambdaDistance,
-                0);
-
-        Vector velocity = new Vector(random.nextGaussian() * lambdaVelocity, random.nextGaussian() * lambdaVelocity,
-                0);
-
-        return new Star(id, mass, position, velocity);
-    }
 
     public static void addBlackHole(Galaxy galaxy) {
         galaxy.listStar().add(generateBlackHole());
     }
 
     private static Star generateBlackHole() {
-        return generate(-1, BLACK_HOLE_MASS, 0, 0);
+
+        StarGenerator starGenerator = new RandomStarGenerator(BLACK_HOLE_MASS, 0, 0);
+        return starGenerator.generate(-1);
     }
 }
