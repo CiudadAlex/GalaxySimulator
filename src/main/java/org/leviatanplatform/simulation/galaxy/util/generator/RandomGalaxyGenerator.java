@@ -23,15 +23,17 @@ public class RandomGalaxyGenerator {
     public static final double MILLENNIUM = 1000 * YEAR;
 
 
-    public static Galaxy generateGalaxy(int numberOfStars) {
+    public static Galaxy generateGalaxy(int numberOfStars, double velocityFactor) {
 
-        StarGenerator starGenerator = new RandomStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
+        StarGenerator starGenerator = new RandomStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
+                TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars) {
+    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double velocityFactor) {
 
-        StarGenerator starGenerator = new RandomFixedMassZ0StarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS, TYPICAL_STAR_VELOCITY * 1e6);
+        StarGenerator starGenerator = new RandomFixedMassZ0StarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
+                TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
 

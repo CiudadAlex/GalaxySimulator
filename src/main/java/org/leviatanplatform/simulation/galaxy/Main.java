@@ -18,15 +18,18 @@ public class Main {
         boolean relativistic = false;
         boolean flatUniverse = false;
         boolean hasBlackHole = false;
+        double velocityFactor = 1e6;
 
-        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse, hasBlackHole);
+        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse, hasBlackHole,
+                velocityFactor);
     }
 
     public static void simulateGalaxy(int numberOfIterations, int numberOfStars, int millisToRepaint,
-                                      boolean relativistic, boolean flatUniverse, boolean hasBlackHole) throws InterruptedException {
+                                      boolean relativistic, boolean flatUniverse, boolean hasBlackHole,
+                                      double velocityFactor) throws InterruptedException {
 
-        Galaxy galaxy = flatUniverse ? RandomGalaxyGenerator.generateGalaxyFixedMassZ0(numberOfStars)
-                : RandomGalaxyGenerator.generateGalaxy(numberOfStars);
+        Galaxy galaxy = flatUniverse ? RandomGalaxyGenerator.generateGalaxyFixedMassZ0(numberOfStars, velocityFactor)
+                : RandomGalaxyGenerator.generateGalaxy(numberOfStars, velocityFactor);
 
         if (hasBlackHole) {
             RandomGalaxyGenerator.addBlackHole(galaxy);
