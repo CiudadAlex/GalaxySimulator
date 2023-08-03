@@ -23,28 +23,36 @@ public class RandomGalaxyGenerator {
     public static final double YEAR = 365.25 * DAY;
     public static final double MILLENNIUM = 1000 * YEAR;
 
-    public static Galaxy generateGalaxy(int numberOfStars, double velocityFactor) {
+    public static Galaxy generateGalaxy(GalaxyType galaxyType, int numberOfStars, double velocityFactor) {
+        return switch (galaxyType) {
+            case NO_RESTRICTION -> generateGalaxyNoRestriction(numberOfStars, velocityFactor);
+            case FLAT_FIXED_MASS -> generateGalaxyFixedMassZ0(numberOfStars, velocityFactor);
+            case ROTATORY -> generateGalaxyRotatory(numberOfStars, velocityFactor);
+        };
+    }
+
+    private static Galaxy generateGalaxyNoRestriction(int numberOfStars, double velocityFactor) {
 
         StarGenerator starGenerator = new RandomStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
                 TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    public static Galaxy generateGalaxyRotatory(int numberOfStars, double velocityFactor) {
+    private static Galaxy generateGalaxyRotatory(int numberOfStars, double velocityFactor) {
 
         StarGenerator starGenerator = new RandomRotatoryStarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
                 TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    public static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double velocityFactor) {
+    private static Galaxy generateGalaxyFixedMassZ0(int numberOfStars, double velocityFactor) {
 
         StarGenerator starGenerator = new RandomFixedMassZ0StarGenerator(SOLAR_MASS, MILKY_WAY_RADIUS,
                 TYPICAL_STAR_VELOCITY * velocityFactor);
         return generateGalaxy(numberOfStars, starGenerator);
     }
 
-    public static Galaxy generateGalaxy(int numberOfStars, StarGenerator starGenerator) {
+    private static Galaxy generateGalaxy(int numberOfStars, StarGenerator starGenerator) {
 
         List<Star> listStar = new ArrayList<>(numberOfStars);
 

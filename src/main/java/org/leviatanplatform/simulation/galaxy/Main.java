@@ -5,6 +5,7 @@ import org.leviatanplatform.simulation.galaxy.engine.NewtonianDynamicsCalculator
 import org.leviatanplatform.simulation.galaxy.engine.RelativisticDynamicsCalculator;
 import org.leviatanplatform.simulation.galaxy.engine.model.Galaxy;
 import org.leviatanplatform.simulation.galaxy.util.Chronometer;
+import org.leviatanplatform.simulation.galaxy.util.generator.GalaxyType;
 import org.leviatanplatform.simulation.galaxy.util.generator.RandomGalaxyGenerator;
 import org.leviatanplatform.simulation.galaxy.util.show.GalaxyGraphicRepresentation;
 
@@ -16,21 +17,20 @@ public class Main {
         int numberOfStars = 1000;
         int millisToRepaint = 10;
         boolean relativistic = false;
-        boolean flatUniverse = false;
+        GalaxyType galaxyType = GalaxyType.ROTATORY;
         boolean hasBlackHole = false;
         double velocityFactor = 1e6;
         double secondsJump = 3 * RandomGalaxyGenerator.MONTH;
 
-        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, flatUniverse, hasBlackHole,
+        simulateGalaxy(numberOfIterations, numberOfStars, millisToRepaint, relativistic, galaxyType, hasBlackHole,
                 velocityFactor, secondsJump);
     }
 
     public static void simulateGalaxy(int numberOfIterations, int numberOfStars, int millisToRepaint,
-                                      boolean relativistic, boolean flatUniverse, boolean hasBlackHole,
+                                      boolean relativistic, GalaxyType galaxyType, boolean hasBlackHole,
                                       double velocityFactor, double secondsJump) throws InterruptedException {
 
-        Galaxy galaxy = flatUniverse ? RandomGalaxyGenerator.generateGalaxyFixedMassZ0(numberOfStars, velocityFactor)
-                : RandomGalaxyGenerator.generateGalaxy(numberOfStars, velocityFactor);
+        Galaxy galaxy = RandomGalaxyGenerator.generateGalaxy(galaxyType, numberOfStars, velocityFactor);
 
         if (hasBlackHole) {
             RandomGalaxyGenerator.addBlackHole(galaxy);
